@@ -98,8 +98,7 @@ exports.deleteArticle = async (req, res, next) => {
 
 exports.getAllArticles = async (req, res, next) => {
   try {
-    const articles = await Article.find().populate('Categorie').populate('Fournisseur').exec();
-
+    const articles = await Article.find().populate('Categorie').populate('Fournisseur');
     res.status(200).json({
       success: true,
       articles: articles,
@@ -113,7 +112,7 @@ exports.getArticleById = async (req, res, next) => {
   try {
     const articleId = req.params.id;
 
-    const article = await Article.findById(articleId).populate('Categorie').populate('Serie').populate('Marque').populate('Fournisseur').exec();
+    const article = await Article.findById(articleId).populate('Categorie').populate('Fournisseur').exec();
 
     if (!article) {
       return res.status(404).json({

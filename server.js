@@ -7,6 +7,8 @@ const fournisseurRoutes = require('./Route/fournisseur')
 const clientRoutes = require('./Route/client')
 const categoryRoutes = require('./Route/category')
 const articleRoutes = require('./Route/article')
+const sortieRoutes = require('./Route/sortie')
+
 
 
 const os = require('os');
@@ -31,6 +33,8 @@ app.use("/api/fournisseur",fournisseurRoutes);
 app.use("/api/client",clientRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/article", articleRoutes);
+app.use("/api/sortie", sortieRoutes);
+
 
 
 
