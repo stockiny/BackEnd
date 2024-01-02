@@ -6,17 +6,15 @@ exports.getStock = async (req, res, next) => {
   try {
     const articles = await Article.find();
 
-    const sorties = await Sortie.find().populate("Article").exec();
+    const sorties = await Sortie.find();
 
-    const articlesMap = new Map(
-      articles
-        .filter(article => article && article.id)
-        .map(article => [article.id, article])
-    );
+   
 
   
     const stock = articles.map(article => ({
       article: article.id,
+      Reference : article.Reference,
+      Designation : article.Designation,
       quantiteInitiale: parseInt(article.Quantite) || 0,
       quantiteVendue: 0,
       quantiteRestante: parseInt(article.Quantite) || 0,
@@ -43,6 +41,7 @@ exports.getStock = async (req, res, next) => {
     res.status(200).json({
       success: true,
       stock: stock,
+      
     });
   } catch (err) {
     console.error(err);
