@@ -44,7 +44,7 @@ exports.addSortie = async (req, res, next) => {
   
   exports.getAllSorties = async (req, res, next) => {
     try {
-      const sorties = await Sortie.find().populate('Client')
+      const sorties = await Sortie.find().populate('Client').populate('Article.article').exec();
       res.status(200).json({
         success: true,
         sorties: sorties,
@@ -53,11 +53,15 @@ exports.addSortie = async (req, res, next) => {
       next(err);
     }
   };
-  
   exports.getSortieById = async (req, res, next) => {
     try {
       const sortieId = req.params.id;
-      const sortie = await getSortieById(sortieId);
+  
+      const sortie = await Sortie.findById(sortieId)
+        .populate('Article.article')
+        .populate('Client')
+        .lean();
+  
       if (!sortie) {
         return res.status(404).json({
           success: false,
@@ -66,9 +70,35 @@ exports.addSortie = async (req, res, next) => {
       }
       res.status(200).json({
         success: true,
-        sortie: sortie,
+        sortie: { ...sortie},
       });
     } catch (err) {
       next(err);
     }
   };
+
+
+  exports.getSortiesByClient = async (req, res, next) => {
+    try {
+        const clientId = req.params.clientId;
+
+        const sorties = await Sortie.find({'Client': clientId })
+            .populate('Article.article')
+            .populate('Client')
+            .lean();
+
+        res.status(200).json({
+            success: true,
+            sorties: sorties,
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
+
+
+
+
+
+ 

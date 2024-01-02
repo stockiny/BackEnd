@@ -11,6 +11,7 @@ exports.addArticle = async (req, res, next) => {
       TauxFodec,
       PrixAchatAvecFodec,
       TauxMarge,
+      Quantite,
       CoutAchatTTC,
       PrixVenteTTC,
 
@@ -38,6 +39,7 @@ exports.addArticle = async (req, res, next) => {
       TauxTVA: TauxTVA,
       TauxFodec: TauxFodec,
       TauxMarge: TauxMarge,
+      Quantite: Quantite,
       PrixAchatAvecFodec: PrixAchatAvecFodec,
       CoutAchatTTC: CoutAchatTTC,
       PrixVenteTTC: PrixVenteTTC ? PrixVenteTTC : -1,
@@ -201,4 +203,34 @@ exports.updatePrices = async (req, res, next) => {
 
 
 };
+
+exports.Somme = async (req, res) => {
+  try {
+    const sumResult = await Article.aggregate([{ $group: { _id: null, total: { $sum: '$PrixAchatHT' } } }]);
+    
+    if (sumResult.length > 0) {
+      res.json({ sum: sumResult[0].total });
+    } else {
+      res.json({ sum: 0 });
+    }
+  } catch (error) {
+    console.error('Error calculating sum of prices:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+exports.SommeTTC = async (req, res) => {
+  try {
+    const sumResult = await Article.aggregate([{ $group: { _id: null, total: { $sum: '$PrixVenteTTC' } } }]);
+    
+    if (sumResult.length > 0) {
+      res.json({ sum: sumResult[0].total });
+    } else {
+      res.json({ sum: 0 });
+    }
+  } catch (error) {
+    console.error('Error calculating sum of prices:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+  
 

@@ -13,6 +13,7 @@ const articleSchema = new Schema(
     TauxMarge: { type: Number, default: 0 },
     CoutAchatTTC: { type: Number, default: 0 },
     PrixVenteTTC: { type: Number },
+    Quantite: {type : String},
     Photo: { type: String }
   },
   { timestamps: true }

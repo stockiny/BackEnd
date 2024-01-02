@@ -28,6 +28,10 @@ router.delete('/articles/:id', articleController.deleteArticle);
 // Obtenir tous les articles
 router.get('/articles', articleController.getAllArticles);
 
+router.get('/articles/somme', articleController.Somme);
+router.get('/articles/sommeTTC', articleController.SommeTTC);
+
+
 // Obtenir un article par son ID
 router.get('/articles/:id', articleController.getArticleById);
 
