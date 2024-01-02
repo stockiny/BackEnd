@@ -8,6 +8,7 @@ const clientRoutes = require('./Route/client')
 const categoryRoutes = require('./Route/category')
 const articleRoutes = require('./Route/article')
 const sortieRoutes = require('./Route/sortie')
+const stockRoutes = require('./Route/stock')
 
 
 
@@ -34,6 +35,7 @@ app.use("/api/client",clientRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/article", articleRoutes);
 app.use("/api/sortie", sortieRoutes);
+app.use("/api/stock", stockRoutes);
 
 
 

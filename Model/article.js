@@ -14,7 +14,8 @@ const articleSchema = new Schema(
     CoutAchatTTC: { type: Number, default: 0 },
     PrixVenteTTC: { type: Number },
     Quantite: {type : String},
-    Photo: { type: String }
+    Photo: { type: String },
+    
   },
   { timestamps: true }
 );

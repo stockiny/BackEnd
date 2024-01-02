@@ -21,6 +21,8 @@ const sortieSchema = new Schema(
 );
 
 
+
+
 const Sortie = mongoose.model("sortie", sortieSchema);
 
 module.exports = Sortie;
